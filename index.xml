@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>https://zhangyongran.github.io/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Feb 2024 09:00:56 +0800</lastBuildDate><atom:link href="https://zhangyongran.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello</title>
+      <link>https://zhangyongran.github.io/post/hello/</link>
+      <pubDate>Mon, 12 Feb 2024 09:00:56 +0800</pubDate>
+      
+      <guid>https://zhangyongran.github.io/post/hello/</guid>
+      <description>Polard Rho $$ a^p \equiv 1 \pmod{p} $$</description>
+    </item>
+    
+    <item>
+      <title>Myfirstblog</title>
+      <link>https://zhangyongran.github.io/post/myfirstblog/</link>
+      <pubDate>Sun, 11 Feb 2024 22:33:17 +0800</pubDate>
+      
+      <guid>https://zhangyongran.github.io/post/myfirstblog/</guid>
+      <description>Miller-Rabin $$ f(x) = \int_{-\infty}^\infty\hat f(\xi),e^{2 \pi i \xi x},d\xi $$</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangyongran.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangyongran.github.io/about/</guid>
+      <description>zhangyongran</description>
+    </item>
+    
+  </channel>
+</rss>
