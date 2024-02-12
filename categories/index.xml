@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on My New Hugo Site</title>
-    <link>https://zhangyongran.github.io/categories/</link>
+    <link>https://nargnoygnahz.github.io/categories/</link>
     <description>Recent content in Categories on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Feb 2024 09:00:56 +0800</lastBuildDate><atom:link href="https://zhangyongran.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Feb 2024 09:00:56 +0800</lastBuildDate><atom:link href="https://nargnoygnahz.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Example</title>
-      <link>https://zhangyongran.github.io/categories/example/</link>
+      <link>https://nargnoygnahz.github.io/categories/example/</link>
       <pubDate>Mon, 12 Feb 2024 09:00:56 +0800</pubDate>
       
-      <guid>https://zhangyongran.github.io/categories/example/</guid>
+      <guid>https://nargnoygnahz.github.io/categories/example/</guid>
       <description></description>
     </item>
     
