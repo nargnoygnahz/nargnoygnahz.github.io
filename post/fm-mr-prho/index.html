@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fm-Mr-Prho | zyr&#39;s blog</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Fm-Mr-Prho</span></h1>
+
+<h2 class="date">2024/02/12</h2>
+</div>
+
+<main>
+<h3 id="fermat-素性测试">Fermat 素性测试</h3>
+<p><strong>费马小定理</strong></p>
+<p><code>$a^{p-1}\equiv1\pmod{p}$</code> 其中 p 是素数。
+另一个形式：<code>$a^p \equiv a \pmod{p}$</code> 。
+反之，若 <code>$a^{p-1} \not\equiv 1 \pmod{p}$</code> 那么其中 <code>$p$</code> 一定不是素数。</p>
+<p>基本思想是不断地选取在 <code>$[2, n-1]$</code> 中的基 <code>$a$</code> ，并检验是否每次都有 <code>$a^{n-1} \equiv 1 \pmod n$</code> 。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">millerRabin</span>(<span style="color:#66d9ef">int</span> n) {
+  <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>) <span style="color:#66d9ef">return</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>;
+  <span style="color:#75715e">// test_time 为测试次数,建议设为不小于 8
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// 的整数以保证正确率,但也不宜过大,否则会影响效率
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> test_time; <span style="color:#f92672">++</span>i) {
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> (n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>;
+    <span style="color:#66d9ef">if</span> (quickPow(a, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, n) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+}
+</code></pre></div><p>如果 <code>$a^{n−1} \equiv 1 \pmod n$</code> 但 <code>$n$</code> 不是素数，则 <code>$n$</code> 被称为以 <code>$a$</code> 为底的<strong>伪素数</strong>。
+例如： <code>$n=341$</code> 且 <code>$a=2$</code> ，即使 <code>$341=11*31$</code> 是合数，也有 <code>$2^{340}\equiv 1 {\pmod {341}}$</code> 。
+事实上， <code>$341$</code> 是最小的为素数基数。因此费马小定理的逆定理不成立。
+甚至有些合数满足任意的满足 <code>$n \nmid a$</code> 的整数 <code>$a$</code> 均有 <code>$a^{n−1} \equiv 1 \pmod n$</code> ，这样的数称为 Carmichael数 。</p>
+<p>对于合数 <code>$n$</code> ，如果对于所有正整数 <code>$a$</code> ， <code>$a$</code> 和 <code>$n$</code> 互素，都有同余式 <code>$a^{n-1} \equiv 1 \pmod n$</code> 成立，则合数 <code>$n$</code> 为 <strong>Carmichael 数</strong> 。
+如 <code>$561 = 3 \times 11 \times 17$</code> 就是一个 Carmichael 数，同时也是最小的 Carmichael 数。</p>
+<p>判别 <code>$n$</code> 是否为 Carmichael 数:
+<strong>Korselt 判别法</strong>
+合数 <code>$n$</code> 是 Carmichael 数当且仅当 <code>$n$</code> 无平方因子且对 <code>$n$</code> 的任意质因子 <code>$p$</code> 均有 <code>$p-1 \mid n-1$</code> 。
+Carmichael 数无平方因子且至少有 3 个不同的质因子。</p>
+<h3 id="miller-rabin-素性测试">Miller-Rabin 素性测试</h3>
+<blockquote>
+<p>不用提前筛质数，可在 <code>$O(log^2n)$</code> 的时间复杂度</p>
+</blockquote>
+<h4 id="前置知识">前置知识</h4>
+<p><strong>二次探测定理</strong></p>
+<p>如果 p 是奇素数，则 <code>$x^2 \equiv 1 \pmod p$</code> 的解为 <code>$x \equiv 1 \pmod p$</code> 或者 <code>$x \equiv p - 1 \pmod p$</code> 。</p>
+<p>要证明该定理，只需将上面的方程移项，再使用平方差公式，得到 <code>$(x+1)(x-1) \equiv 0 \bmod p$</code> ，即可得出上面的结论。</p>
+<h4 id="主体">主体</h4>
+<p>设待检验的数为 <code>$n$</code>
+先找一个数 <code>$a$</code> ，然后计算 <code>$a^{n-1} \mod n$</code>
+如果计算结果不等于 <code>$1$</code> ，则判定为非素数。
+多代入几个 <code>$a$</code> ，如果都等于 <code>$1$</code> ，则可判定为素数。</p>
+
+</main>
+
+  <footer>
+  <script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/math-code.min.js" defer></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="//cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+<script src="//cdn.jsdelivr.net/npm/@xiee/utils/js/center-img.min.js" defer></script>
+
+  
+  <hr/>
+  zhangyongran &ndash; 2024 | <a href="https://github.com/nargnoygnahz">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

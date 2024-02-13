@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>zyr&#39;s blog</title>
-    <link>https://nargnoygnahz.github.io/</link>
-    <description>Recent content on zyr&#39;s blog</description>
+    <title>Fm-Mr-Prho on zyr&#39;s blog</title>
+    <link>https://nargnoygnahz.github.io/tags/fm-mr-prho/</link>
+    <description>Recent content in Fm-Mr-Prho on zyr&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Feb 2024 21:42:52 +0800</lastBuildDate><atom:link href="https://nargnoygnahz.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Feb 2024 21:42:52 +0800</lastBuildDate><atom:link href="https://nargnoygnahz.github.io/tags/fm-mr-prho/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fm-Mr-Prho</title>
       <link>https://nargnoygnahz.github.io/post/fm-mr-prho/</link>
@@ -17,24 +17,6 @@
 $a^{p-1}\equiv1\pmod{p}$ 其中 p 是素数。 另一个形式：$a^p \equiv a \pmod{p}$ 。 反之，若 $a^{p-1} \not\equiv 1 \pmod{p}$ 那么其中 $p$ 一定不是素数。
 基本思想是不断地选取在 $[2, n-1]$ 中的基 $a$ ，并检验是否每次都有 $a^{n-1} \equiv 1 \pmod n$ 。
 bool millerRabin(int n) { if (n &amp;lt; 3) return n == 2; // test_time 为测试次数,建议设为不小于 8  // 的整数以保证正确率,但也不宜过大,否则会影响效率  for (int i = 1; i &amp;lt;= test_time; ++i) { int a = rand() % (n - 2) + 2; if (quickPow(a, n - 1, n) !</description>
-    </item>
-    
-    <item>
-      <title>Hello</title>
-      <link>https://nargnoygnahz.github.io/post/hello/</link>
-      <pubDate>Mon, 12 Feb 2024 09:00:56 +0800</pubDate>
-      
-      <guid>https://nargnoygnahz.github.io/post/hello/</guid>
-      <description>Polard Rho $$ a^p \equiv 1 \pmod{p} $$</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://nargnoygnahz.github.io/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://nargnoygnahz.github.io/about/</guid>
-      <description>zhangyongran</description>
     </item>
     
   </channel>
