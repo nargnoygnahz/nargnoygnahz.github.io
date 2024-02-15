@@ -66,12 +66,32 @@ Carmichael 数无平方因子且至少有 3 个不同的质因子。</p>
 <p><strong>二次探测定理</strong></p>
 <p>如果 p 是奇素数，则 <code>$x^2 \equiv 1 \pmod p$</code> 的解为 <code>$x \equiv 1 \pmod p$</code> 或者 <code>$x \equiv p - 1 \pmod p$</code> 。</p>
 <p>要证明该定理，只需将上面的方程移项，再使用平方差公式，得到 <code>$(x+1)(x-1) \equiv 0 \bmod p$</code> ，即可得出上面的结论。</p>
-<h4 id="主体">主体</h4>
-<p>设待检验的数为 <code>$n$</code>
-先找一个数 <code>$a$</code> ，然后计算 <code>$a^{n-1} \mod n$</code>
-如果计算结果不等于 <code>$1$</code> ，则判定为非素数。
-多代入几个 <code>$a$</code> ，如果都等于 <code>$1$</code> ，则可判定为素数。</p>
-
+<h4 id="实现">实现</h4>
+<p>首先，根据Carmichael 数的性质，这个数一定不是一个质数的几次方。</p>
+<p>我们将费马小定理和二次探测定理结合起来：</p>
+<p>将 <code>$a^{n-1} \equiv 1 \pmod n$</code> 中的指数 <code>$n−1$</code> 分解为 <code>$n−1=u \times 2^t$</code> 。
+接着，将每轮测试所选的 <code>$a$</code> 求出 <code>$v = a^{u} \bmod n$</code> ，对这个 <code>$v$</code> 执行最多不超过 <code>$t$</code> 次平方操作。
+若在这 <code>$t$</code> 次平方操作中，都没找到其等于 <code>$n-1$</code> 这一情况（首先 我们先判断 <code>$k$</code> 是否等于 <code>$1$</code> ，其次若其等于 <code>$n-1$</code> ，则根据二次探测定理可得当它最后平方至 <code>$a^{n-1}$</code> 时，一定满足 <code>$a^{n-1} \equiv 1 \pmod n$</code> ），就直接 break 掉，因为此时我们得到了平凡平方根 <code>$n-1$</code> 。
+若将 <code>$v$</code> 平方了 <code>$t$</code> 次后依旧不等于 <code>$n-1$</code> ，则其满足 <code>$a^{n-1} \not\equiv 1 \pmod n$</code> ，我们直接 <code>return 0</code> ，因为我们发现了一个非平凡平方根。
+在oi 比赛中，我们一般需要验 <code>$[0,2^{64}]$</code> 中的质数，通常只需要取前 <code>$8$</code> 个质数来当作基底，就可以完成任务。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> aa[<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">19</span>};
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">millerRabin</span>(<span style="color:#66d9ef">int</span> n) {
+	<span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">||</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>;
+	<span style="color:#66d9ef">int</span> u <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, t <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">while</span> (u <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) u <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>, <span style="color:#f92672">++</span>t;
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">8</span>; i<span style="color:#f92672">++</span>) {
+		<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> aa[i], v <span style="color:#f92672">=</span> quickPow(a, u, n);
+		<span style="color:#66d9ef">if</span> (v <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">continue</span>;
+		<span style="color:#66d9ef">int</span> s;
+		<span style="color:#66d9ef">for</span> (s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; s <span style="color:#f92672">&lt;</span> t; s<span style="color:#f92672">++</span>) {
+			<span style="color:#66d9ef">if</span> (v <span style="color:#f92672">==</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">break</span>;
+			v <span style="color:#f92672">=</span> (<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span>)v <span style="color:#f92672">*</span> v <span style="color:#f92672">%</span> n;
+		}
+		<span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> t) <span style="color:#66d9ef">return</span> false;
+	}
+	<span style="color:#66d9ef">return</span> true;
+}
+</code></pre></div>
 </main>
 
   <footer>
