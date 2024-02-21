@@ -6,7 +6,16 @@
     <description>Recent content on zyr&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Feb 2024 21:42:52 +0800</lastBuildDate><atom:link href="https://nargnoygnahz.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Feb 2024 11:11:02 +0800</lastBuildDate><atom:link href="https://nargnoygnahz.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>High School Slides</title>
+      <link>https://nargnoygnahz.github.io/post/high-school-slides/</link>
+      <pubDate>Wed, 21 Feb 2024 11:11:02 +0800</pubDate>
+      
+      <guid>https://nargnoygnahz.github.io/post/high-school-slides/</guid>
+      <description>年少的你啊-每周一歌</description>
+    </item>
+    
     <item>
       <title>Fm-Mr-Prho</title>
       <link>https://nargnoygnahz.github.io/post/fm-mr-prho/</link>
@@ -16,16 +25,16 @@
       <description>Fermat 素性测试 费马小定理
 $a^{p-1}\equiv1\pmod{p}$ 其中 p 是素数。 另一个形式：$a^p \equiv a \pmod{p}$ 。 反之，若 $a^{p-1} \not\equiv 1 \pmod{p}$ 那么其中 $p$ 一定不是素数。
 基本思想是不断地选取在 $[2, n-1]$ 中的基 $a$ ，并检验是否每次都有 $a^{n-1} \equiv 1 \pmod n$ 。
-bool millerRabin(int n) { if (n &amp;lt; 3) return n == 2; // test_time 为测试次数,建议设为不小于 8  // 的整数以保证正确率,但也不宜过大,否则会影响效率  for (int i = 1; i &amp;lt;= test_time; ++i) { int a = rand() % (n - 2) + 2; if (quickPow(a, n - 1, n) !</description>
+bool fermat(int n) { if (n &amp;lt; 3) return n == 2; // test_time 为测试次数,建议设为不小于 8  // 的整数以保证正确率,但也不宜过大,否则会影响效率  for (int i = 1; i &amp;lt;= test_time; ++i) { int a = rand() % (n - 2) + 2; if (quickPow(a, n - 1, n) !</description>
     </item>
     
     <item>
-      <title></title>
+      <title>Zyr&#39;s blog</title>
       <link>https://nargnoygnahz.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://nargnoygnahz.github.io/about/</guid>
-      <description>zhangyongran</description>
+      <description>菜！ </description>
     </item>
     
   </channel>
