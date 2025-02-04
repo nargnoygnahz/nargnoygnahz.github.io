@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nargnoygnahz</title>
+    <title>about me - nargnoygnahz</title>
     <style>
         body {
             text-align: center; /* 文本居中 */
@@ -24,14 +24,22 @@
         nav a:hover {
             text-decoration: underline;
         }
-        article {
-            margin-bottom: 20px; /* 文章间距 */
+        .about-content {
+            text-align: left; /* 内容左对齐 */
+            display: inline-block; /* 使内容宽度适应 */
+            margin-top: 20px;
+        }
+        .about-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%; /* 圆形头像 */
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>nargnoygnahz</h1>
+        <h1>about me</h1>
         <nav>
             <a href="./index.html">home</a>
             <a href="./about.html">about</a>
@@ -39,9 +47,10 @@
         </nav>
     </header>
     <main>
-        <article>
-            <a href="./post/DFJH-CSIE.html">DFJH-CSIE</a>
-        </article>
+        <div class="about-content">
+            <img src="./profile.jpg" alt="我的头像" width="150"> <!-- 替换为你的头像图片 -->
+            <h2>Vegetable killed me.</h2>
+        </div>
     </main>
     <footer>
         <p>&copy; 2025 zhangyongran</p>
