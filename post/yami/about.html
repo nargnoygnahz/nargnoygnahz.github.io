@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - 杨铭昊内卷网</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            min-height: 100vh;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .mono-text {
+            font-family: 'Space Mono', monospace;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            transition: left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            left: 0;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            border-radius: 50%;
+            z-index: 2;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            opacity: 0.3;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-white overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="hero-title text-xl font-bold gradient-text">杨铭昊</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium">首页</a>
+                        <a href="about.html" class="nav-link text-white hover:text-orange-400 px-3 py-2 text-sm font-medium">关于</a>
+                        <a href="projects.html" class="nav-link text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium">项目</a>
+                        <a href="contact.html" class="nav-link text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium">联系</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-900/95">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium">首页</a>
+                <a href="about.html" class="text-white block px-3 py-2 text-base font-medium">关于</a>
+                <a href="projects.html" class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium">项目</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="pt-24 pb-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <img src="resources/profile.jpg" alt="杨铭昊" class="w-40 h-40 rounded-full mx-auto mb-8 border-4 border-orange-400/30 hover-lift">
+            <h1 class="hero-title text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">关于我的故事</span>
+            </h1>
+            <p class="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">紫霄雷劫 · 外语通神录<br>
+<br>
+泉城之秋，铅云垂幕。<br>
+济南外国语学校的哥特式钟楼顶端，乌云竟诡异地旋成涡状。高三楼里，无形的压力比湿冷的空气更粘稠，无数唇齿间翻滚着英法德日西的咒文吟诵——这是外语保送争夺战的序曲。<br>
+<br>
+杨铭昊抱着《巴黎圣母院》法文原版踉跄前行，书脊在他胸前垒成巴别塔。就在他踏进高三（一）班门槛的刹那，天际紫电如判官笔直劈而下，将他钉在雷光交织的十字架上！<br>
+<br>
+“是天道劫雷！”有人惊叫。<br>
+待雷光散尽，众人却见杨铭昊巍然屹立，手中《罗兰之歌》泛着星辉。他睁眼的瞬间，左瞳流淌着塞纳河波光，右眼翻涌着泰晤士雾霭：<br>
+<br>
+“原来如此...外语保送竟是言灵飞升之路。”<br>
+<br>
+第二章 唇齿结印·声动九霄<br>
+<br>
+自那日后，杨铭昊的修行方式惊煞众人。<br>
+晨读时分他漫步至趵突泉畔，开口诵读《神曲》原文，三股泉水竟随抑扬顿挫幻化地狱炼狱天堂三重幻境；夜修时他在图书馆角落默写《罗密欧与朱丽叶》，羊皮纸页间真的绽放出维罗纳玫瑰。<br>
+<br>
+最可怖的是模拟联考——<br>
+当全省考生在听力试音里挣扎时，他指尖轻点耳机：<br>
+“BBC腔太刻意，VOA转音做作。”<br>
+话音未落，所有考场音响自动校准为皇家莎士比亚剧院原声。批改作文时他闭目凝神，三千份试卷上的字母如萤火虫汇成星河，在他眉间化作“S+”铭文。<br>
+<br>
+第三章 百语朝宗·未名启明<br>
+<br>
+保送决战日，七国考官列座未名湖虚影。<br>
+当杨铭昊展开《追忆似水年华》法文段落，整个考场弥漫玛德琳蛋糕的香气；当他用古教会斯拉夫语吟唱圣诗，窗外竟飘落拜占庭金粉。最后关头，他望着“元宇宙与跨文化传播”考题轻笑，用二进制英语混合甲骨文写下：<br>
+<br>
+“语言本是文明的量子纠缠。”<br>
+<br>
+天地骤然寂静，北大录取通知书破空而来，化作鎏金法旨悬于头顶。云间传来威严道音：<br>
+“杨铭昊道友，燕园言灵殿特招班虚席以待。”<br>
+他踏着飘落的雅思托福成绩单拾级而上，身后是千万卷帙燃作的涅槃之火。<br>
+<br>
+此刻济南外校钟声长鸣，石刻校训熠熠生辉：<br>
+“语通三界，文载天道。”
+            </p>
+        </div>
+    </section>
+
+    <!-- 个人故事 -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div>
+                    <h2 class="hero-title text-3xl md:text-4xl font-bold mb-6 gradient-text">我的理念</h2>
+                    <div class="space-y-6 text-lg text-gray-300 leading-relaxed">
+                        <p>
+                            我相信每个人都应该找到自己独特的人生路径，而不是盲目跟随他人的脚步。
+                            在这个被"内卷"文化主导的社会中，我们更需要保持清醒的头脑，
+                            思考什么才是真正对我们有意义的。
+                        </p>
+                        <p>
+                            我的目标是通过技术和思考，帮助更多人找到工作与生活的平衡点，
+                            在追求效率的同时不忘记生活的本质，在竞争中保持人性的温度。
+                        </p>
+                        <p>
+                            这不仅仅是一个个人网站，更是一个关于如何在现代社会中保持清醒、
+                            追求真正价值的思考和探索空间。
+                        </p>
+                    </div>
+                </div>
+                <div class="glass-card rounded-2xl p-8 hover-lift">
+                    <h3 class="text-2xl font-bold mb-6 text-center">核心价值观</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">🎯</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">目标导向</h4>
+                                <p class="text-sm text-gray-400">专注于真正重要的事情</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">⚖️</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">平衡发展</h4>
+                                <p class="text-sm text-gray-400">工作与生活的和谐统一</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">🌱</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">持续学习</h4>
+                                <p class="text-sm text-gray-400">终身成长的心态</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">🤝</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">合作共赢</h4>
+                                <p class="text-sm text-gray-400">在竞争中寻求合作</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成长时间线 -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="hero-title text-4xl md:text-5xl font-bold mb-6 gradient-text">成长历程</h2>
+                <p class="text-xl text-gray-300">每一个节点都是人生旅程中的重要里程碑</p>
+            </div>
+            
+            <div class="space-y-12">
+                <div class="timeline-item glass-card rounded-xl p-8 hover-lift">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-bold mb-2 md:mb-0">2024年 - 内卷网创立</h3>
+                        <span class="text-sm text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">现在</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        创建"杨铭昊内卷网"，希望通过这个平台分享对现代生活方式的思考，
+                        帮助更多人在快节奏的生活中找到平衡，重新定义成功的标准。
+                    </p>
+                </div>
+                
+                <div class="timeline-item glass-card rounded-xl p-8 hover-lift">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-bold mb-2 md:mb-0">2022年 - 产品管理经验</h3>
+                        <span class="text-sm text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">2年前</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        在多家科技公司担任产品经理，深入了解用户需求和市场动态，
+                        学会了如何在有限的资源和时间内创造最大的价值。
+                    </p>
+                </div>
+                
+                <div class="timeline-item glass-card rounded-xl p-8 hover-lift">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-bold mb-2 md:mb-0">2020年 - 技术转型</h3>
+                        <span class="text-sm text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">4年前</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        从传统行业转向技术领域，深入学习前端开发、数据分析和产品设计，
+                        开始思考技术与人类生活的关系。
+                    </p>
+                </div>
+                
+                <div class="timeline-item glass-card rounded-xl p-8 hover-lift">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-2xl font-bold mb-2 md:mb-0">2018年 - 毕业与思考</h3>
+                        <span class="text-sm text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">6年前</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        从知名大学计算机科学专业毕业，在校期间就开始关注效率提升和时间管理，
+                        形成了对现代工作方式的初步思考。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育理念 -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="hero-title text-4xl md:text-5xl font-bold mb-6 gradient-text">对内卷文化的思考</h2>
+                <p class="text-xl text-gray-300">深入分析当代社会现象，寻找更好的生活方式</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card rounded-xl p-8 hover-lift">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">⚠️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">内卷的危害</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start space-x-2">
+                            <span class="text-red-400 mt-1">•</span>
+                            <span>过度竞争导致身心疲惫</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-red-400 mt-1">•</span>
+                            <span>忽视个人兴趣和天赋</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-red-400 mt-1">•</span>
+                            <span>创新能力的丧失</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-red-400 mt-1">•</span>
+                            <span>生活质量的下降</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card rounded-xl p-8 hover-lift">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">💡</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">应对策略</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start space-x-2">
+                            <span class="text-blue-400 mt-1">•</span>
+                            <span>重新定义个人成功</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-blue-400 mt-1">•</span>
+                            <span>培养独特的竞争优势</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-blue-400 mt-1">•</span>
+                            <span>建立健康的工作节奏</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-blue-400 mt-1">•</span>
+                            <span>注重长期价值创造</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card rounded-xl p-8 hover-lift">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">🌟</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">理想状态</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-start space-x-2">
+                            <span class="text-green-400 mt-1">•</span>
+                            <span>工作与生活的平衡</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-green-400 mt-1">•</span>
+                            <span>持续学习的状态</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-green-400 mt-1">•</span>
+                            <span>有意义的社交关系</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-green-400 mt-1">•</span>
+                            <span>内心的平静与满足</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 兴趣爱好 -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="hero-title text-4xl md:text-5xl font-bold mb-6 gradient-text">生活面貌</h2>
+                <p class="text-xl text-gray-300">工作之外，我也是一个热爱生活的人</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="glass-card rounded-xl p-8 hover-lift">
+                    <h3 class="text-2xl font-bold mb-6">兴趣爱好</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">📚</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">阅读思考</h4>
+                                <p class="text-sm text-gray-400">哲学、心理学、商业思维</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">🏃</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">运动健身</h4>
+                                <p class="text-sm text-gray-400">跑步、游泳、力量训练</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">🎵</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">音乐欣赏</h4>
+                                <p class="text-sm text-gray-400">古典音乐、爵士乐</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">✈️</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">旅行探索</h4>
+                                <p class="text-sm text-gray-400">体验不同文化，开阔视野</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl p-8 hover-lift">
+                    <h3 class="text-2xl font-bold mb-6">日常习惯</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-teal-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">🌅</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">晨间仪式</h4>
+                                <p class="text-sm text-gray-400">6点起床，冥想30分钟</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">📝</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">日记反思</h4>
+                                <p class="text-sm text-gray-400">每日记录思考和感悟</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">📱</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">数字断舍离</h4>
+                                <p class="text-sm text-gray-400">定期清理数字垃圾</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">🤝</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">深度对话</h4>
+                                <p class="text-sm text-gray-400">每周与朋友深度交流</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900/50 border-t border-gray-700/50 py-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="mb-8">
+                <h3 class="hero-title text-2xl font-bold gradient-text mb-4">杨铭昊内卷网</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    在快节奏的现代生活中，寻找属于自己的节奏与平衡。
+                    探索效率与意义的交汇点，重新定义成功的标准。
+                </p>
+            </div>
+            <div class="border-t border-gray-700/50 pt-8">
+                <p class="text-gray-500 text-sm">
+                    © 2024 杨铭昊内卷网. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            anime({
+                targets: '.glass-card',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 800,
+                easing: 'easeOutExpo',
+                delay: anime.stagger(200)
+            });
+        });
+    </script>
+</body>
+</html>

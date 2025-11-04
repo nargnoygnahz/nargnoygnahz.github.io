@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目作品 - 杨铭昊内卷网</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            min-height: 100vh;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .mono-text {
+            font-family: 'Space Mono', monospace;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            transition: left 0.3s ease;
+        }
+        .nav-link:hover::after {
+            left: 0;
+        }
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #E67E22, #16A085);
+            color: white;
+        }
+        .project-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        .project-card.hidden {
+            display: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #E67E22;
+        }
+    </style>
+</head>
+<body class="text-white overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="hero-title text-xl font-bold gradient-text">杨铭昊</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium">首页</a>
+                        <a href="about.html" class="nav-link text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium">关于</a>
+                        <a href="projects.html" class="nav-link text-white hover:text-orange-400 px-3 py-2 text-sm font-medium">项目</a>
+                        <a href="contact.html" class="nav-link text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium">联系</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-900/95">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium">首页</a>
+                <a href="about.html" class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium">关于</a>
+                <a href="projects.html" class="text-white block px-3 py-2 text-base font-medium">项目</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="pt-24 pb-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="hero-title text-5xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">项目作品</span>
+            </h1>
+            <p class="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8">
+                每一个项目都是思考的结晶，是对效率和意义平衡的追求
+            </p>
+        </div>
+    </section>
+
+    <!-- 筛选器 -->
+    <section class="pb-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active px-6 py-3 rounded-full border border-gray-600 text-sm font-medium" data-filter="all">
+                    全部项目
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-600 text-sm font-medium" data-filter="web">
+                    Web开发
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-600 text-sm font-medium" data-filter="mobile">
+                    移动应用
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-600 text-sm font-medium" data-filter="data">
+                    数据分析
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full border border-gray-600 text-sm font-medium" data-filter="design">
+                    设计作品
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目网格 -->
+    <section class="pb-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <!-- 项目1 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="web" data-project="1">
+                    <img src="https://kimi-web-img.moonshot.cn/img/media.geeksforgeeks.org/b371a062c01b8fd9ee99132df42db7c3d73f60ac.png" alt="效率管理系统" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">Web开发</span>
+                            <span class="text-gray-400 text-sm">2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">个人效率管理系统</h3>
+                        <p class="text-gray-300 text-sm mb-4">基于番茄工作法和GTD理念的任务管理系统，帮助用户提高工作效率，避免过度劳累。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Node.js</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目2 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="mobile" data-project="2">
+                    <img src="https://kimi-web-img.moonshot.cn/img/www.mobileui.cn/bbb81d9cfa3a3d9f77439949397cbcd9e7bca06d.jpg" alt="习惯追踪App" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">移动应用</span>
+                            <span class="text-gray-400 text-sm">2024</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">习惯追踪应用</h3>
+                        <p class="text-gray-300 text-sm mb-4">帮助用户建立和维持良好习惯的移动应用，通过数据可视化和社区支持提升用户粘性。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">React Native</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Firebase</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Chart.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目3 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="data" data-project="3">
+                    <img src="https://kimi-web-img.moonshot.cn/img/media.slidesgo.com/e413c9a6b7c1d34d804b64465518994fc70b2f98.jpg" alt="数据分析平台" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-medium">数据分析</span>
+                            <span class="text-gray-400 text-sm">2023</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">工作效率分析平台</h3>
+                        <p class="text-gray-300 text-sm mb-4">通过数据分析帮助团队和个人了解工作效率模式，发现改进机会，实现科学管理。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Python</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Pandas</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">D3.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目4 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="web" data-project="4">
+                    <img src="https://kimi-web-img.moonshot.cn/img/www.techgeekbuzz.com/c1429a55f6befc63cf932d488bc0f5fc22c03ce8.jpg" alt="学习平台" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">Web开发</span>
+                            <span class="text-gray-400 text-sm">2023</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">在线学习平台</h3>
+                        <p class="text-gray-300 text-sm mb-4">专注于效率提升和职业技能发展的在线学习平台，采用微课程和社区学习模式。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Vue.js</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Laravel</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目5 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="design" data-project="5">
+                    <img src="https://kimi-web-img.moonshot.cn/img/static2.businessinsider.com/5c260695f51040d7cbd5ad0432a2791de6f56445.jpg" alt="设计系统" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-xs font-medium">设计作品</span>
+                            <span class="text-gray-400 text-sm">2023</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">企业效率设计系统</h3>
+                        <p class="text-gray-300 text-sm mb-4">为SaaS产品设计的一套完整的设计系统，专注于提升用户工作效率和体验。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Figma</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Design System</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目6 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="mobile" data-project="6">
+                    <img src="https://kimi-web-img.moonshot.cn/img/i.ytimg.com/cb7c5272041924c86fa1146741d9c426c5355fd3.jpg" alt="专注App" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-medium">移动应用</span>
+                            <span class="text-gray-400 text-sm">2022</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">深度专注助手</h3>
+                        <p class="text-gray-300 text-sm mb-4">基于神经科学研究的专注力训练应用，帮助用户在数字时代保持深度工作的能力。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Flutter</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">SQLite</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Audio API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目7 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="data" data-project="7">
+                    <img src="https://kimi-web-img.moonshot.cn/img/img.freepik.com/0a39a0471f297b25889c11e833a97b0447051962.jpg" alt="健康分析" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-medium">数据分析</span>
+                            <span class="text-gray-400 text-sm">2022</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">健康数据分析工具</h3>
+                        <p class="text-gray-300 text-sm mb-4">整合可穿戴设备数据，提供个性化的健康分析和生活方式建议，预防职业病。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">R语言</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">机器学习</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">API集成</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目8 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="web" data-project="8">
+                    <img src="https://kimi-web-img.moonshot.cn/img/techarbiters.com/6b2f06df941ba3f134ef270e6f7f7900312fb7eb.webp" alt="团队协作" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-medium">Web开发</span>
+                            <span class="text-gray-400 text-sm">2022</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">敏捷团队协作平台</h3>
+                        <p class="text-gray-300 text-sm mb-4">专为敏捷开发团队设计的协作工具，集成项目管理、代码审查和团队沟通功能。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Angular</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">GraphQL</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目9 -->
+                <div class="project-card glass-card rounded-xl overflow-hidden hover-lift" data-category="design" data-project="9">
+                    <img src="https://kimi-web-img.moonshot.cn/img/bodaq.com/e39ec51172f10be8b745a7b85ec9ea12186334a3.png" alt="办公空间" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-xs font-medium">设计作品</span>
+                            <span class="text-gray-400 text-sm">2021</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">未来办公空间设计</h3>
+                        <p class="text-gray-300 text-sm mb-4">结合人体工程学和心理学研究的办公空间设计方案，提升工作效率和员工幸福感。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">3D建模</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">环境设计</span>
+                            <span class="bg-gray-700/50 px-2 py-1 rounded text-xs">人体工程学</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目详情模态框 -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body">
+                <!-- 动态内容将在这里插入 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900/50 border-t border-gray-700/50 py-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="mb-8">
+                <h3 class="hero-title text-2xl font-bold gradient-text mb-4">杨铭昊内卷网</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    在快节奏的现代生活中，寻找属于自己的节奏与平衡。
+                    探索效率与意义的交汇点，重新定义成功的标准。
+                </p>
+            </div>
+            <div class="border-t border-gray-700/50 pt-8">
+                <p class="text-gray-500 text-sm">
+                    © 2024 杨铭昊内卷网. 保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 项目数据
+        const projectData = {
+            1: {
+                title: "个人效率管理系统",
+                category: "Web开发",
+                year: "2024",
+                description: "这是一个基于现代Web技术开发的个人效率管理系统，旨在帮助用户在快节奏的生活中找到工作与休息的平衡点。",
+                features: [
+                    "智能任务分类和优先级管理",
+                    "番茄工作法计时器",
+                    "工作数据分析可视化",
+                    "个人效率报告生成",
+                    "团队协作功能"
+                ],
+                techStack: ["React 18", "Node.js", "Express", "MongoDB", "Socket.io", "Chart.js"],
+                challenge: "如何在保证功能完整性的同时，确保系统的响应速度和用户体验。",
+                solution: "采用前端组件化开发，后端微服务架构，数据库读写分离，CDN加速等技术手段。",
+                result: "系统响应时间控制在200ms以内，用户满意度达到95%以上。"
+            },
+            2: {
+                title: "习惯追踪应用",
+                category: "移动应用",
+                year: "2024",
+                description: "一款专注于帮助用户建立和维持良好习惯的移动应用，通过游戏化设计和社区支持提升用户粘性。",
+                features: [
+                    "习惯打卡和进度追踪",
+                    "数据可视化分析",
+                    "社区挑战和排行榜",
+                    "个性化提醒和建议",
+                    "成就系统和奖励机制"
+                ],
+                techStack: ["React Native", "Firebase", "Redux", "Native Modules", "Push Notifications"],
+                challenge: "如何在不同平台上保持一致的用户体验，同时充分利用原生功能。",
+                solution: "采用React Native跨平台开发，针对特定功能使用原生模块优化。",
+                result: "应用在App Store和Google Play获得4.8星评价，日活跃用户超过1万。"
+            },
+            3: {
+                title: "工作效率分析平台",
+                category: "数据分析",
+                year: "2023",
+                description: "通过大数据分析技术，帮助团队和个人了解工作效率模式，发现改进机会，实现科学管理。",
+                features: [
+                    "多维度效率指标分析",
+                    "智能异常检测",
+                    "预测性分析和建议",
+                    "团队绩效对比",
+                    "定制化报告生成"
+                ],
+                techStack: ["Python", "Pandas", "Scikit-learn", "D3.js", "PostgreSQL", "Apache Spark"],
+                challenge: "如何处理大规模数据，同时保证分析结果的准确性和实时性。",
+                solution: "采用分布式计算框架，机器学习算法优化，缓存策略等技术方案。",
+                result: "成功帮助50+企业提升团队效率平均15%以上。"
+            }
+        };
+
+        // 移动端菜单
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // 筛选功能
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 更新按钮状态
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+                
+                // 筛选项目
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        card.classList.remove('hidden');
+                        anime({
+                            targets: card,
+                            opacity: [0, 1],
+                            scale: [0.8, 1],
+                            duration: 500,
+                            easing: 'easeOutExpo'
+                        });
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // 项目详情模态框
+        const modal = document.getElementById('project-modal');
+        const modalBody = document.getElementById('modal-body');
+        const closeBtn = document.querySelector('.close');
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project');
+                const project = projectData[projectId];
+                
+                if (project) {
+                    modalBody.innerHTML = `
+                        <div class="mb-6">
+                            <h2 class="text-3xl font-bold mb-2 gradient-text">${project.title}</h2>
+                            <div class="flex items-center space-x-4 text-sm text-gray-400">
+                                <span>${project.category}</span>
+                                <span>•</span>
+                                <span>${project.year}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-3">项目概述</h3>
+                            <p class="text-gray-300 leading-relaxed">${project.description}</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-3">主要功能</h3>
+                            <ul class="space-y-2">
+                                ${project.features.map(feature => `
+                                    <li class="flex items-start space-x-2">
+                                        <span class="text-orange-400 mt-1">•</span>
+                                        <span class="text-gray-300">${feature}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold mb-3">技术栈</h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${project.techStack.map(tech => `
+                                    <span class="bg-gray-700/50 px-3 py-1 rounded-full text-sm">${tech}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-xl font-bold mb-3">挑战</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed">${project.challenge}</p>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-3">解决方案</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed">${project.solution}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+                            <h3 class="text-xl font-bold mb-2 text-green-300">项目成果</h3>
+                            <p class="text-gray-300 text-sm leading-relaxed">${project.result}</p>
+                        </div>
+                    `;
+                    
+                    modal.style.display = 'block';
+                    anime({
+                        targets: '.modal-content',
+                        opacity: [0, 1],
+                        scale: [0.8, 1],
+                        duration: 300,
+                        easing: 'easeOutExpo'
+                    });
+                }
+            });
+        });
+
+        // 关闭模态框
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            anime({
+                targets: '.project-card',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 800,
+                easing: 'easeOutExpo',
+                delay: anime.stagger(100)
+            });
+        });
+    </script>
+</body>
+</html>
