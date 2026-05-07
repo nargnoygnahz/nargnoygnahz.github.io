@@ -64,6 +64,38 @@ a {
   min-width: 12rem;
 }
 
+.sticker-tray {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-right: auto;
+}
+
+.sticker-tray span {
+  display: grid;
+  min-width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 8px 18px rgba(31, 38, 34, 0.08);
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 800;
+  transform: rotate(-2deg);
+}
+
+.sticker-tray span:nth-child(2) {
+  color: var(--accent-dark);
+  transform: rotate(2deg);
+}
+
+.sticker-tray span:nth-child(3) {
+  color: var(--warn);
+  transform: rotate(-5deg);
+}
+
 .brand-mark {
   display: grid;
   width: 2.4rem;
@@ -133,6 +165,15 @@ main {
   justify-content: flex-end;
   min-height: auto;
   padding: 2rem 0 1rem;
+}
+
+.reading .intro {
+  display: none;
+}
+
+.reading .workspace {
+  grid-template-columns: 12rem minmax(0, 1fr);
+  padding-top: 2rem;
 }
 
 .eyebrow,
@@ -336,7 +377,7 @@ h1 {
 
 .article-body {
   margin-top: 2rem;
-  color: #2e2a25;
+  color: #111512;
   font-size: 1.03rem;
 }
 
@@ -357,13 +398,14 @@ h1 {
 .article-body ul,
 .article-body ol {
   max-width: 48rem;
+  color: #111512;
 }
 
 .article-body pre {
   overflow-x: auto;
   padding: 1rem;
   border-radius: 0.45rem;
-  background: var(--code-bg);
+  background: #f6f8fa;
 }
 
 .article-body code {
@@ -372,6 +414,38 @@ h1 {
   background: var(--code-bg);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.92em;
+}
+
+.article-body pre code.hljs {
+  display: block;
+}
+
+.article-body pre code {
+  padding: 0;
+  background: transparent;
+}
+
+.article-body .hljs {
+  background: transparent;
+  color: #24292f;
+}
+
+.simple-hljs .code-keyword {
+  color: #cf222e;
+  font-weight: 700;
+}
+
+.simple-hljs .code-string {
+  color: #0a3069;
+}
+
+.simple-hljs .code-comment {
+  color: #6e7781;
+  font-style: italic;
+}
+
+.simple-hljs .code-number {
+  color: #0550ae;
 }
 
 .loading {
@@ -435,8 +509,17 @@ h1 {
     justify-content: flex-start;
   }
 
+  .sticker-tray {
+    order: 3;
+    margin-right: 0;
+  }
+
   .intro,
   .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .reading .workspace {
     grid-template-columns: 1fr;
   }
 

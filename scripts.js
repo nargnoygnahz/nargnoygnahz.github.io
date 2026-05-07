@@ -136,6 +136,35 @@ function articleShell(post, body) {
   `;
 }
 
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function simpleHighlight(block) {
+  let html = escapeHtml(block.textContent);
+  html = html
+    .replace(/(\/\/.*$)/gm, '<span class="code-comment">$1</span>')
+    .replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)/g, '<span class="code-string">$1</span>')
+    .replace(/\b(const|let|var|function|return|if|else|for|while|class|new|async|await|import|export|from|def|lambda|True|False|None|int|long|double|void|auto|vector|string|public|private|include|using|namespace)\b/g, '<span class="code-keyword">$1</span>')
+    .replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="code-number">$1</span>');
+  block.innerHTML = html;
+  block.classList.add("simple-hljs");
+}
+
+function highlightCodeBlocks() {
+  document.querySelectorAll(".article-body pre code").forEach((block) => {
+    if (window.hljs) {
+      hljs.highlightElement(block);
+    } else {
+      simpleHighlight(block);
+    }
+  });
+}
+
 async function renderMarkdownPost(post) {
   articleShell(post, `<div class="article-body loading">正在加载文章...</div>`);
 
@@ -146,6 +175,7 @@ async function renderMarkdownPost(post) {
     const html = window.marked ? marked.parse(markdown) : `<pre>${markdown}</pre>`;
     document.querySelector(".article-body").innerHTML = html;
 
+    highlightCodeBlocks();
     if (window.MathJax?.typesetPromise) {
       window.MathJax.typesetPromise([app]);
     }
@@ -184,6 +214,7 @@ function renderPost(slug) {
 function render() {
   const route = getRoute();
   const activeCategory = route.view === "category" ? route.category : "all";
+  document.body.classList.toggle("reading", route.view === "post");
   renderCategories(activeCategory);
 
   if (route.view === "post") {
